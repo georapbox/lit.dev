@@ -54,6 +54,6 @@
     "playground-elements": "^0.16.2",
     "prettier": "^2.1.2",
     "typescript": "~4.6.2",
-    "wireit": "^0.6.1"
+    "wireit": "^0.7.3-pre.3"
   }
 }
