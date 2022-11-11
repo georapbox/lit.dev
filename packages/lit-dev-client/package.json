@@ -1,0 +1,87 @@
+{
+  "name": "lit-dev-client",
+  "private": true,
+  "version": "0.0.0",
+  "description": "lit.dev site JavaScript",
+  "author": "Google LLC",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "wireit",
+    "check": "wireit",
+    "build:dev": "wireit",
+    "build:prod": "wireit",
+    "check:types": "wireit"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "build:dev",
+        "build:prod",
+        "check:types"
+      ]
+    },
+    "check": {
+      "dependencies": [
+        "check:types"
+      ]
+    },
+    "build:dev": {
+      "command": "find src -name \"*.ts\" | xargs esbuild --color --outdir=lib",
+      "clean": "if-file-deleted",
+      "files": [
+        "src/"
+      ],
+      "output": [
+        "lib/"
+      ]
+    },
+    "build:prod": {
+      "command": "FORCE_COLOR=1 rollup -c",
+      "dependencies": [
+        "build:dev"
+      ],
+      "files": [
+        "rollup.config.js"
+      ],
+      "output": [
+        "rollupout/"
+      ]
+    },
+    "check:types": {
+      "command": "tsc --pretty --noEmit",
+      "files": [
+        "src/",
+        "tsconfig.json",
+        "../../tsconfig.base.json"
+      ],
+      "output": [
+        "lib/.tsbuildinfo"
+      ]
+    }
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "rollup": "^2.23.0",
+    "rollup-plugin-minify-html-literals": "^1.2.6",
+    "rollup-plugin-summary": "^1.2.3",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "dependencies": {
+    "@lit-labs/motion": "^1.0.1",
+    "@lit-labs/react": "^1.0.8",
+    "@lit-labs/task": "^1.0.0",
+    "@lit/localize": "^0.10.0",
+    "@material/mwc-button": "^0.26.1",
+    "@material/mwc-checkbox": "^0.26.1",
+    "@material/mwc-dialog": "^0.26.1",
+    "@material/mwc-drawer": "^0.26.1",
+    "@material/mwc-formfield": "^0.26.1",
+    "@material/mwc-snackbar": "^0.26.1",
+    "@material/mwc-textfield": "^0.26.1",
+    "@types/react": "^18.0.17",
+    "lit": "^2.1.0",
+    "postdoc-lib": "^1.0.3",
+    "tarts": "^1.0.0",
+    "tslib": "^2.2.0"
+  }
+}
